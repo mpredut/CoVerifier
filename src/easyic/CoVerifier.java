@@ -48,7 +48,7 @@ import javax.swing.text.html.ImageView;
 import javax.swing.text.Element;
 import javax.swing.JInternalFrame;
 
-public class Test {
+public class CoVerifier {
 
 	private JFrame frmEasyicCoverified;
 	private JTextField textField;
@@ -66,7 +66,7 @@ public class Test {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Test window = new Test();
+					CoVerifier window = new CoVerifier();
 					window.frmEasyicCoverified.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -78,7 +78,7 @@ public class Test {
 	/**
 	 * Create the application.
 	 */
-	public Test() {
+	public CoVerifier() {
 		
 		UIDefaults uiDefaults = UIManager.getDefaults();
 		uiDefaults.put("activeCaption", new javax.swing.plaf.ColorUIResource(easyicOrange));
@@ -118,11 +118,11 @@ public class Test {
 		
 		JPanel panel = new JPanel();
 		
-		/*** aici creez un bordar dash */
+		/*** aici creez un bordar dash ***/
 		Paint pnt = new GradientPaint(0, 0, Color.red, 100, 100, Color.pink, true); 
 		float thickness = 2; float  length = 5; float  spacing= 5; boolean rounded = true;
 		Border borderdash = BorderFactory.createDashedBorder(pnt, thickness, length, spacing, rounded);
-		/*end border*/
+		/*end border dash*/
 		
 		panel.setBorder(borderdash);
 		//panel.setBorder(new LineBorder(new Color(0, 0, 0)));
