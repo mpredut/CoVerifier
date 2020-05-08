@@ -46,6 +46,9 @@ import javax.imageio.ImageIO;
 import javax.swing.text.html.ImageView;
 import javax.swing.text.Element;
 import javax.swing.JInternalFrame;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class CoVerifier {
 
@@ -96,21 +99,24 @@ public class CoVerifier {
 		frmEasyicCoverified.setBackground(ORANGE);
 		frmEasyicCoverified.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		frmEasyicCoverified.setTitle("EasyIC CoVerifier");
-		frmEasyicCoverified.setBounds(100, 100, 998, 819);
+		frmEasyicCoverified.setBounds(100, 100, 998, 860);
 		frmEasyicCoverified.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmEasyicCoverified.getContentPane().setLayout(null);
 		
 		JLabel lblNewJgoodiesTitle_1 = DefaultComponentFactory.getInstance().createTitle("");
+		lblNewJgoodiesTitle_1.setVisible(false);
 		lblNewJgoodiesTitle_1.setBounds(924, 208, 61, 120);
 		frmEasyicCoverified.getContentPane().add(lblNewJgoodiesTitle_1);
 		lblNewJgoodiesTitle_1.setIcon(new ImageIcon("res\\lvm3.gif"));
 		
 		JLabel lblNewJgoodiesTitle_3 = DefaultComponentFactory.getInstance().createTitle("New JGoodies title");
+		lblNewJgoodiesTitle_3.setVisible(false);
 		lblNewJgoodiesTitle_3.setIcon(new ImageIcon("res\\lvm1.gif"));
 		lblNewJgoodiesTitle_3.setBounds(24, 74, 29, 70);
 		frmEasyicCoverified.getContentPane().add(lblNewJgoodiesTitle_3);
 		
 		JLabel lblNewJgoodiesTitle_2 = DefaultComponentFactory.getInstance().createTitle("New JGoodies title");
+		lblNewJgoodiesTitle_2.setVisible(false);
 		lblNewJgoodiesTitle_2.setIcon(new ImageIcon("res\\lvl2.gif"));
 		lblNewJgoodiesTitle_2.setBounds(24, 220, 38, 97);
 		frmEasyicCoverified.getContentPane().add(lblNewJgoodiesTitle_2);
@@ -221,6 +227,7 @@ public class CoVerifier {
 		panel_4.setLayout(gl_panel_4);
 		
 		JLabel lblNewJgoodiesTitle = DefaultComponentFactory.getInstance().createTitle("");
+		lblNewJgoodiesTitle.setVisible(false);
 		lblNewJgoodiesTitle.setBounds(605, 13, 269, 130);
 		panel.add(lblNewJgoodiesTitle);
 		lblNewJgoodiesTitle.setIcon(new ImageIcon("res\\not_used.gif"));
@@ -228,7 +235,7 @@ public class CoVerifier {
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_2.setBounds(48, 370, 886, 430);
+		panel_2.setBounds(48, 370, 886, 404);
 		frmEasyicCoverified.getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 		
@@ -240,37 +247,21 @@ public class CoVerifier {
 		table.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"UART", null, null, null, null, null},
-				{"SPI", null, null, null, null, null},
-				{"HDMI", null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
+				{"UART", null},
+				{"SPI", null},
+				{"HDMI", null},
 			},
 			new String[] {
-				"EXT_PORT", "CONFIG1", "CONFIG1", "CONFIG1", "CONFIG1", "CONFIG1"
+				"EXT_PORT", "CONFIG1"
 			}
 		));
-		table.setRowHeight(32);
-		table.setRowMargin(5);
-		table.getColumnModel().setColumnMargin(5);
 		table.getColumnModel().getColumn(0).setPreferredWidth(152);
 		table.getColumnModel().getColumn(0).setMinWidth(50);
 		table.getColumnModel().getColumn(1).setPreferredWidth(152);
 		table.getColumnModel().getColumn(1).setMinWidth(50);
-		table.getColumnModel().getColumn(2).setPreferredWidth(152);
-		table.getColumnModel().getColumn(2).setMinWidth(50);
-		table.getColumnModel().getColumn(3).setPreferredWidth(152);
-		table.getColumnModel().getColumn(3).setMinWidth(50);
-		table.getColumnModel().getColumn(4).setPreferredWidth(152);
-		table.getColumnModel().getColumn(4).setMinWidth(50);
-		table.getColumnModel().getColumn(5).setPreferredWidth(152);
-		table.getColumnModel().getColumn(5).setMinWidth(50);
-		table.setBounds(47, 129, 774, 288);
+		table.setRowHeight(32);
+		table.setRowMargin(5);
+		table.setBounds(47, 129, 774, 138);
 		table.setShowGrid(true);
 		table.setShowVerticalLines(true);
 		table.setShowHorizontalLines(true);
@@ -278,17 +269,17 @@ public class CoVerifier {
 		panel_2.add(table);
 		
 		JScrollBar scrollBar = new JScrollBar();
-		scrollBar.setBounds(833, 85, 21, 319);
+		scrollBar.setBounds(833, 85, 21, 183);
 		panel_2.add(scrollBar);
 		
-		JLabel lblNewLabel_2 = new JLabel("     GENERATE");
-		lblNewLabel_2.setForeground(Color.WHITE);
-		lblNewLabel_2.setBackground(ORANGE);
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		lblNewLabel_2.setBounds(47, 24, 231, 38);
-		lblNewLabel_2.setOpaque(true);
-		lblNewLabel_2.setBorder(new LineBorder(new Color(0, 0, 0), 5, true));
-		panel_2.add(lblNewLabel_2);
+		JButton btnNewButton = new JButton("  GENERATE");
+		btnNewButton.setForeground(Color.WHITE);
+		btnNewButton.setBackground(ORANGE);
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btnNewButton.setBounds(47, 24, 256, 38);
+		btnNewButton.setOpaque(true);
+		btnNewButton.setBorder(new LineBorder(new Color(0, 0, 0), 5, true));
+		panel_2.add(btnNewButton);
 		
 		table_1 = new JTable();
 		table_1.setBackground(Color.BLACK);
@@ -296,27 +287,28 @@ public class CoVerifier {
 		table_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		table_1.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"EXT. PORT", "CONFIG1", "CONFIG2", "CONFIG3", "CONFIG4", "CONFIG5"},
+				{"EXT. PORT", "CONFIG ALL"},
 			},
 			new String[] {
-				"New column", "test", "New column", "New column", "New column", "New column"
+				"New column", "test"
 			}
 		));
-		table_1.setRowHeight(52);		
 		table_1.getColumnModel().getColumn(0).setPreferredWidth(152);
 		table_1.getColumnModel().getColumn(0).setMinWidth(50);
 		table_1.getColumnModel().getColumn(1).setPreferredWidth(152);
 		table_1.getColumnModel().getColumn(1).setMinWidth(50);
-		table_1.getColumnModel().getColumn(2).setPreferredWidth(152);
-		table_1.getColumnModel().getColumn(2).setMinWidth(50);
-		table_1.getColumnModel().getColumn(3).setPreferredWidth(152);
-		table_1.getColumnModel().getColumn(3).setMinWidth(50);
-		table_1.getColumnModel().getColumn(4).setPreferredWidth(152);
-		table_1.getColumnModel().getColumn(4).setMinWidth(50);
-		table_1.getColumnModel().getColumn(5).setPreferredWidth(152);
-		table_1.getColumnModel().getColumn(5).setMinWidth(50);
+		table_1.setRowHeight(52);
 		table_1.setBounds(47, 81, 774, 48);
 		panel_2.add(table_1);
+		
+		JButton btnNewButton_1 = new JButton("ADD NEW PORT");
+		btnNewButton_1.setBounds(47, 280, 140, 38);
+		panel_2.add(btnNewButton_1);
+		
+		JButton btnAddNewConfig = new JButton("ADD NEW CONFIG");
+		btnAddNewConfig.setBounds(681, 31, 140, 38);
+		panel_2.add(btnAddNewConfig);
+		
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(borderdash);
@@ -385,5 +377,20 @@ public class CoVerifier {
 		lblNewJgoodiesTitle_5.setIcon(new ImageIcon("res\\uart.gif"));
 		lblNewJgoodiesTitle_5.setBounds(177, 8, 59, 35);
 		panel_6.add(lblNewJgoodiesTitle_5);
+		
+		JMenuBar menuBar = new JMenuBar();
+		frmEasyicCoverified.setJMenuBar(menuBar);
+		
+		JMenu mnNewMenu = new JMenu("Project");
+		menuBar.add(mnNewMenu);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Load");
+		mnNewMenu.add(mntmNewMenuItem);
+		
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Save");
+		mnNewMenu.add(mntmNewMenuItem_1);
+		
+		JMenu mnNewMenu_1 = new JMenu("Settings...");
+		menuBar.add(mnNewMenu_1);
 	}
 }
