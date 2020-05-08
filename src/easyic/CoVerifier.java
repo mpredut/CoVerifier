@@ -3,7 +3,6 @@ package easyic;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import net.miginfocom.swing.MigLayout;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JCheckBox;
