@@ -104,15 +104,15 @@ public class CoVerifier {
 		JLabel lblNewJgoodiesTitle_1 = DefaultComponentFactory.getInstance().createTitle("");
 		lblNewJgoodiesTitle_1.setBounds(924, 208, 61, 120);
 		frmEasyicCoverified.getContentPane().add(lblNewJgoodiesTitle_1);
-		lblNewJgoodiesTitle_1.setIcon(new ImageIcon("D:\\easiyc\\lvm3.gif"));
+		lblNewJgoodiesTitle_1.setIcon(new ImageIcon("res\\lvm3.gif"));
 		
 		JLabel lblNewJgoodiesTitle_3 = DefaultComponentFactory.getInstance().createTitle("New JGoodies title");
-		lblNewJgoodiesTitle_3.setIcon(new ImageIcon("D:\\easiyc\\lvm1.gif"));
+		lblNewJgoodiesTitle_3.setIcon(new ImageIcon("res\\lvm1.gif"));
 		lblNewJgoodiesTitle_3.setBounds(24, 74, 29, 70);
 		frmEasyicCoverified.getContentPane().add(lblNewJgoodiesTitle_3);
 		
 		JLabel lblNewJgoodiesTitle_2 = DefaultComponentFactory.getInstance().createTitle("New JGoodies title");
-		lblNewJgoodiesTitle_2.setIcon(new ImageIcon("D:\\easiyc\\lvl2.gif"));
+		lblNewJgoodiesTitle_2.setIcon(new ImageIcon("res\\lvl2.gif"));
 		lblNewJgoodiesTitle_2.setBounds(24, 220, 38, 97);
 		frmEasyicCoverified.getContentPane().add(lblNewJgoodiesTitle_2);
 		
@@ -222,9 +222,9 @@ public class CoVerifier {
 		panel_4.setLayout(gl_panel_4);
 		
 		JLabel lblNewJgoodiesTitle = DefaultComponentFactory.getInstance().createTitle("");
-		lblNewJgoodiesTitle.setBounds(605, 13, 223, 130);
+		lblNewJgoodiesTitle.setBounds(605, 13, 269, 130);
 		panel.add(lblNewJgoodiesTitle);
-		lblNewJgoodiesTitle.setIcon(new ImageIcon("D:\\easiyc\\not_used.gif"));
+		lblNewJgoodiesTitle.setIcon(new ImageIcon("res\\not_used.gif"));
 		lblNewJgoodiesTitle.setBackground(ORANGE);
 		
 		JPanel panel_2 = new JPanel();
@@ -350,7 +350,7 @@ public class CoVerifier {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		
 		JLabel lblNewJgoodiesTitle_4 = DefaultComponentFactory.getInstance().createTitle("New JGoodies title");
-		lblNewJgoodiesTitle_4.setIcon(new ImageIcon("D:\\easiyc\\axi.gif"));
+		lblNewJgoodiesTitle_4.setIcon(new ImageIcon("res\\axi.gif"));
 		lblNewJgoodiesTitle_4.setBounds(317, 10, 51, 38);
 		panel_8.add(lblNewJgoodiesTitle_4);
 		
@@ -383,7 +383,7 @@ public class CoVerifier {
 		panel_6.add(lblBfm);
 		
 		JLabel lblNewJgoodiesTitle_5 = DefaultComponentFactory.getInstance().createTitle("New JGoodies title");
-		lblNewJgoodiesTitle_5.setIcon(new ImageIcon("D:\\easiyc\\uart.gif"));
+		lblNewJgoodiesTitle_5.setIcon(new ImageIcon("res\\uart.gif"));
 		lblNewJgoodiesTitle_5.setBounds(177, 8, 59, 35);
 		panel_6.add(lblNewJgoodiesTitle_5);
 	}
