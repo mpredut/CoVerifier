@@ -656,7 +656,7 @@ public class CoVerifier {
 		panel_2.add(btnAddNewConfig);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(47, 75, 774, 226);
+		scrollPane.setBounds(47, 84, 774, 226);
 		panel_2.add(scrollPane);
 		scrollPane.add(table_2);
 		
