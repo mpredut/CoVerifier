@@ -12,9 +12,11 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
@@ -40,6 +42,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
@@ -80,6 +83,8 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.event.MenuListener;
+import javax.swing.event.MenuEvent;
 
 
 
@@ -98,7 +103,7 @@ class TableModel extends DefaultTableModel {	   //DefaultTableModel implements
 								{new MyComponent(), (true)},
 								{new MyComponent(), (true)}
 								};
-	private String[] columnNames = {"Col1", "Col2"};
+	private String[] columnNames = {"EXTERNAL PORT", "Config ALL"};
 	
 	TableModel() {
 	
@@ -252,6 +257,8 @@ class ButtonRenderer extends JButton implements TableCellRenderer {
 public class CoVerifier {
 
 	private JFrame frmEasyicCoverified;
+	private ConfigPrj frmConfigPrj;
+	
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTable table;
@@ -261,6 +268,7 @@ public class CoVerifier {
 
 	
 	Color easyicOrange = new Color(228, 131, 18);
+	private JTable table_2;
 
 
 	/**
@@ -301,7 +309,7 @@ public class CoVerifier {
 		frmEasyicCoverified.setBackground(ORANGE);
 		frmEasyicCoverified.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		frmEasyicCoverified.setTitle("EasyIC CoVerifier");
-		frmEasyicCoverified.setBounds(100, 100, 1012, 810);
+		frmEasyicCoverified.setBounds(100, 100, 987, 892);
 		frmEasyicCoverified.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmEasyicCoverified.getContentPane().setLayout(null);
 		
@@ -328,13 +336,13 @@ public class CoVerifier {
 		/*end border dash*/
 		
 		//panel.setBorder(borderdash);
-		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel.setBorder(new LineBorder(new Color(0, 0, 0), 3));
 		panel.setBounds(48, 29, 886, 156);
 		frmEasyicCoverified.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new CompoundBorder(new EtchedBorder(EtchedBorder.RAISED, null, null), null));
+		panel_3.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_3.setBounds(12, 13, 424, 130);
 		panel.add(panel_3);
 		panel_3.setLayout(null);
@@ -437,7 +445,7 @@ public class CoVerifier {
 		lblNewJgoodiesTitle.setBackground(ORANGE);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel_2.setBorder(new LineBorder(new Color(0, 0, 0), 3));
 		panel_2.setBounds(48, 370, 886, 404);
 		frmEasyicCoverified.getContentPane().add(panel_2);
 		panel_2.setLayout(null);
@@ -455,13 +463,42 @@ public class CoVerifier {
 		JButton btnNewButton_2 = new JButton("......");
 		btnNewButton_2.setBounds(80, 13, 97, 25);
 		panel_7.add(btnNewButton_2);
+		
+		/*
+		 *
+		 * FOR DEBUG!		
+		table_1 = new JTable();
+		table_1.setBackground(Color.BLACK);
+		table_1.setForeground(Color.WHITE);
+		table_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		table_1.setModel(new DefaultTableModel(
+			new Object[][] {
+				{"EXTERNAL PORT", "CONFIG ALL"},
+			},
+			new String[] {
+				"EXTERNAL PORT", "Config ALL"
+			}
+		));
+		table_1.setAlignmentX(50);
+		table_1.getColumnModel().getColumn(0).setPreferredWidth(152);
+		table_1.getColumnModel().getColumn(0).setMinWidth(50);
+		table_1.getColumnModel().getColumn(1).setPreferredWidth(152);
+		table_1.getColumnModel().getColumn(1).setMinWidth(50);
+		table_1.setRowHeight(52);
+		table_1.setBounds(47, 81, 774, 48);
+		table_1.setVisible(false);
+		panel_2.add(table_1);
 
-		table = new JTable();
-		table.setFillsViewportHeight(true);
-		table.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		table.setForeground(Color.BLACK);
-		table.setBackground(ORANGE);
-		table.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
+		 */
+
+		table_2 = new JTable();
+		table_2.setFillsViewportHeight(true);
+		table_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		table_2.setForeground(Color.BLACK);
+		table_2.setBackground(ORANGE);
+		table_2.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
+		
+		  
 		/*table.setModel(new DefaultTableModel(
 			new Object[][] {
 				{panel_7, null},
@@ -474,6 +511,7 @@ public class CoVerifier {
 		));*/
 		//TableCellRenderer tableRenderer = table.getDefaultRenderer(JButton.class);
 	    //table.setDefaultRenderer(JButton.class, new JTableButtonRenderer(tableRenderer));
+		
 	      //scrollPane = new JScrollPane(table);
 	      //add(scrollPane, BorderLayout.CENTER);
 		
@@ -481,13 +519,14 @@ public class CoVerifier {
 		//TableModel model = new TableModel();
 		//table.setModel(model);
 		 Object[][] rows = {
-				{("UART"), (true)},
-				{("  SPI  "), (true)},
-				{("HDMI"), (true)}
+				{("UART"), (true), (false)},
+				{("  SPI  "), (true), (true)},
+				{("HDMI"), (true), (true)}
 				};
-String[] columnNames = {"Col1", "Col2"};
+		 String[] columnNames = {"EXTERNAL PORT", "Config ALL", "Config 1"};
 		 DefaultTableModel model = new DefaultTableModel(rows, columnNames);
-	        table = new JTable(model) {
+		 
+		 table_2 = new JTable(model) {
 
 	            private static final long serialVersionUID = 1L;
 
@@ -507,12 +546,15 @@ String[] columnNames = {"Col1", "Col2"};
 	                }
 	            }
 	            public boolean isCellEditable(int row, int column) {
-	            	if(column != 0)
+	            	//if(column != 0)
 	                return true;
-	            	return false;
+	            	//return false;
 	          	}
 	        };
-		
+	        
+	        
+	        	
+	        		
 		//table.getColumn("Col1").setCellRenderer(new ButtonRenderer());
 		//table.getColumn("Button2").setCellRenderer(new ButtonRenderer());
 		//table.getColumn("Col2").setCellEditor(new ButtonEditor(new JCheckBox()));
@@ -534,17 +576,16 @@ String[] columnNames = {"Col1", "Col2"};
 	    
 	    //table.getColumn("Col1").setCellRenderer(new ButtonRenderer());
 	    //table.getColumn("Col1").setCellEditor(new ButtonEditor(new JCheckBox()));
-	    table.getColumn("Col1").setCellRenderer(new MyCellComponentRenderer());
-	    table.getColumn("Col1").setCellEditor(new MyCellComponentEditor(new JCheckBox()));
+	    table_2.getColumn("EXTERNAL PORT").setCellRenderer(new MyCellComponentRenderer());
+	    table_2.getColumn("EXTERNAL PORT").setCellEditor(new MyCellComponentEditor(new JCheckBox()));
 	    
         for (int i = 0; i < model.getRowCount(); i++) {
-        	Object obj= table.getValueAt(i, 0);
+        	Object obj = table_2.getValueAt(i, 0);
             //MyComponent value = (MyComponent)table.getValueAt(i, 0);// check state
             //value.setLable("cucu" + i);
             //    System.out.println(model.getValueAt(i, 1));// second column value
             
         }
-
 	    
 	    //JScrollPane scroll = new JScrollPane(table);
 	    //getContentPane().add(scroll);
@@ -552,19 +593,32 @@ String[] columnNames = {"Col1", "Col2"};
 	    //setVisible(true);
 	    /////////
 	    
-		
-		table.getColumnModel().getColumn(0).setPreferredWidth(152);
-		table.getColumnModel().getColumn(0).setMinWidth(50);
-		table.getColumnModel().getColumn(1).setPreferredWidth(152);
-		table.getColumnModel().getColumn(1).setMinWidth(50);
-		table.setRowHeight(32);
-		table.setRowMargin(5);
-		table.setBounds(47, 129, 774, 211);
-		table.setShowGrid(true);
-		table.setShowVerticalLines(true);
-		table.setShowHorizontalLines(true);
-		table.setVisible(true);
-		panel_2.add(table);
+        JTableHeader header = table_2.getTableHeader();
+	    header.setBackground(Color.black);
+	    header.setForeground(Color.white);
+	    header.setPreferredSize(new Dimension(152, 50));
+	    /*
+	    header.getColumnModel().getColumn(0).setPreferredWidth(152);
+	    header.getColumnModel().getColumn(0).setMinWidth(50);
+	    header.getColumnModel().getColumn(1).setPreferredWidth(152);
+	    header.getColumnModel().getColumn(1).setMinWidth(50);
+	    */
+	    
+	    header.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	    ///
+        
+        table_2.getColumnModel().getColumn(0).setPreferredWidth(152);
+        table_2.getColumnModel().getColumn(0).setMinWidth(50);
+        table_2.getColumnModel().getColumn(1).setPreferredWidth(152);
+        table_2.getColumnModel().getColumn(1).setMinWidth(50);
+        table_2.setRowHeight(32);
+        table_2.setRowMargin(5);
+        table_2.setBounds(47, 129, 293, 66);
+        table_2.setShowGrid(true);
+        table_2.setShowVerticalLines(true);
+        table_2.setShowHorizontalLines(true);
+        table_2.setVisible(true);
+		//panel_2.add(table);
 		
 		JScrollBar scrollBar = new JScrollBar();
 		scrollBar.setBounds(833, 85, 21, 255);
@@ -591,27 +645,7 @@ String[] columnNames = {"Col1", "Col2"};
 		btnNewButton.setBounds(47, 24, 256, 38);
 		btnNewButton.setOpaque(true);
 		btnNewButton.setBorder(new LineBorder(new Color(0, 0, 0), 5, true));
-		panel_2.add(btnNewButton);
-		
-		table_1 = new JTable();
-		table_1.setBackground(Color.BLACK);
-		table_1.setForeground(Color.WHITE);
-		table_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		table_1.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"EXT. PORT", "CONFIG ALL"},
-			},
-			new String[] {
-				"New column", "test"
-			}
-		));
-		table_1.getColumnModel().getColumn(0).setPreferredWidth(152);
-		table_1.getColumnModel().getColumn(0).setMinWidth(50);
-		table_1.getColumnModel().getColumn(1).setPreferredWidth(152);
-		table_1.getColumnModel().getColumn(1).setMinWidth(50);
-		table_1.setRowHeight(52);
-		table_1.setBounds(47, 81, 774, 48);
-		panel_2.add(table_1);
+		panel_2.add(btnNewButton);		
 		
 		JButton btnNewButton_1 = new JButton("ADD NEW PORT");
 		btnNewButton_1.setBounds(47, 353, 140, 38);
@@ -620,6 +654,14 @@ String[] columnNames = {"Col1", "Col2"};
 		JButton btnAddNewConfig = new JButton("ADD NEW CONFIG");
 		btnAddNewConfig.setBounds(681, 31, 140, 38);
 		panel_2.add(btnAddNewConfig);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(47, 75, 774, 226);
+		panel_2.add(scrollPane);
+		scrollPane.add(table_2);
+		
+		//table_2 = new JTable();
+		scrollPane.setViewportView(table_2);
 		
 		
 		JPanel panel_1 = new JPanel();
@@ -652,9 +694,8 @@ String[] columnNames = {"Col1", "Col2"};
 		panel_8.add(lblNewLabel_1);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		
-		JButton btnNewButton_3 = new JButton("New button");
+		JButton btnNewButton_3 = new JButton("CONFIG");
 		btnNewButton_3.setBounds(308, 48, 97, 25);
-		btnNewButton_3.setIcon(new ImageIcon("res\\axi.gif"));
 		panel_8.add(btnNewButton_3);
 		
 		JPanel panel_5 = new JPanel();
@@ -687,9 +728,8 @@ String[] columnNames = {"Col1", "Col2"};
 		
 		panel_5.add(panel_6);
 		
-		JButton btnNewButton_4 = new JButton("New button");
+		JButton btnNewButton_4 = new JButton("CONFIG");
 		btnNewButton_4.setBounds(267, 54, 97, 25);
-		btnNewButton_4.setIcon(new ImageIcon("res\\uart.gif"));		
 		panel_6.add(btnNewButton_4);
 					
 		JMenuBar menuBar = new JMenuBar();
@@ -699,12 +739,51 @@ String[] columnNames = {"Col1", "Col2"};
 		menuBar.add(mnNewMenu);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Load");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+				int result = fileChooser.showOpenDialog(frmEasyicCoverified);
+				if (result == JFileChooser.APPROVE_OPTION) {
+				    File selectedFile = fileChooser.getSelectedFile();
+				    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+				}
+			}
+		});
 		mnNewMenu.add(mntmNewMenuItem);
 		
+		JMenuItem mntmNewMenuItem_2 = new JMenuItem("New");
+		mnNewMenu.add(mntmNewMenuItem_2);
+		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Save");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+				int result = fileChooser.showSaveDialog(frmEasyicCoverified);
+				if (result == JFileChooser.APPROVE_OPTION) {
+				    File selectedFile = fileChooser.getSelectedFile();
+				    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+				}
+			}
+		});
 		mnNewMenu.add(mntmNewMenuItem_1);
 		
 		JMenu mnNewMenu_1 = new JMenu("Settings...");
+		mnNewMenu_1.addMenuListener(new MenuListener() {
+			public void menuCanceled(MenuEvent arg0) {
+			}
+			public void menuDeselected(MenuEvent arg0) {
+			}
+			public void menuSelected(MenuEvent arg0) {
+				frmConfigPrj = new ConfigPrj(frmEasyicCoverified);
+				frmConfigPrj.setVisible(true);
+				frmConfigPrj.show(true);
+				frmConfigPrj.setAlwaysOnTop(true);
+				System.out.print("DDDDD");
+			}
+		});
+		
 		menuBar.add(mnNewMenu_1);
 	}
 }

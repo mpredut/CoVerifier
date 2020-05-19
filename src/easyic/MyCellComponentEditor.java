@@ -22,7 +22,7 @@ public class MyCellComponentEditor extends DefaultCellEditor {
         super(checkBox);
 
         myComponent = new MyComponent();
-        myComponent.getCheckBox().setOpaque(true);
+      //  myComponent.getCheckBox().setOpaque(true);
     }
 
     @Override
@@ -37,6 +37,8 @@ public class MyCellComponentEditor extends DefaultCellEditor {
             myComponent.setBackground(Color.orange);
         }
 
+        myComponent.setLable(value.toString());
+        System.out.println("cel editor row : " + row + " " + value.toString());
         return myComponent;
     }
 
@@ -45,7 +47,9 @@ public class MyCellComponentEditor extends DefaultCellEditor {
         if (isPushed) {
         }
         isPushed = false;
-        return new String("");
+        
+        System.out.println("getCellEditorValue");
+        return myComponent.toString();
     }
     @Override
     public boolean stopCellEditing() {

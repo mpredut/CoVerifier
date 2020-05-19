@@ -24,7 +24,7 @@ public class MyComponent extends JPanel
 
     public MyComponent() {
 
-        button = new JButton("....");
+        button = new JButton("  CONFIG");
         button.addActionListener(new ActionListener() {
 	         @Override
 	         public void actionPerformed(ActionEvent arg0) {
@@ -32,12 +32,15 @@ public class MyComponent extends JPanel
 	         }
 	     });
 
-        checkBox = new JCheckBox("A");
-        label1 = new JLabel("B");
-        label2 = new JLabel("C");
+        //checkBox = new JCheckBox("A");
+        label1 = new JLabel("   ");
+        label2 = new JLabel("                     ");
 
         this.add(label1);
         //this.add(label2);
+        this.add(label2);
+        this.add(label2);
+        this.add(label2);
         this.add(button);
         //this.add(checkBox);
         
@@ -46,11 +49,12 @@ public class MyComponent extends JPanel
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
-                JOptionPane.showMessageDialog(button,button.hashCode());
+                JOptionPane.showMessageDialog(button, "APASAT " + label1.getText());
             }
         });
     }
 
+    /////
     public JCheckBox getCheckBox()
     {
         return checkBox;

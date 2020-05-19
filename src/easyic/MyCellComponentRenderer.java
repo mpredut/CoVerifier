@@ -106,8 +106,7 @@ public class MyCellComponentRenderer extends MyComponent implements TableCellRen
       }
 
       setLable(value.toString());
-
-      System.out.println("row" + row);
+      
       return this;
     }
   }
