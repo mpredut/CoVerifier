@@ -87,173 +87,6 @@ import javax.swing.event.MenuListener;
 import javax.swing.event.MenuEvent;
 
 
-
-/**
- * The methods in this class allow the JTable component to get
- * and display data about the files in a specified directory.
- * It represents a table with six columns: filename, size, modification date, 
- * plus three columns for flags: directory, readable, writable.
- **/
-
-class TableModel extends DefaultTableModel {	   //DefaultTableModel implements 
-	private static final long serialVersionUID = 1L;
-	
-	private Object[][] rows = {
-								{new MyComponent(), (true)},
-								{new MyComponent(), (true)},
-								{new MyComponent(), (true)}
-								};
-	private String[] columnNames = {"EXTERNAL PORT", "Config ALL"};
-	
-	TableModel() {
-	
-	
-	/*
-	((JButton)rows[0][0]).addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-		    JOptionPane.showMessageDialog((JButton)rows[0][0], ": Ouch!");
-		}
-	});*/
-
-	}
-   	public String getColumnName(int column) {
-      return columnNames[column];
-   	}
-   	public int getRowCount() {
-      //return rows.length;
-   		return 3;
-   	}
-	public int getColumnCount() {
-     // return columnNames.length;
-		return 2;
-	}
-	public Object getValueAt(int row, int column) {
-      return rows[row][column];
-	}
-	public boolean isCellEditable(int row, int column) {
-      return true;
-	}
-	
-	@SuppressWarnings("unchecked")
-	public Class getColumnClass(int column) {
-     // return getValueAt(0, column).getClass();
-            switch (column) {
-                case 0:
-                    return String.class;
-                case 1:
-                    return Boolean.class;
-                default:
-                    return Boolean.class;
-            }
-        }
-   }   
-
-class JTableButtonRenderer implements TableCellRenderer {
-	   private TableCellRenderer defaultRenderer;
-	   public JTableButtonRenderer(TableCellRenderer renderer) {
-	      defaultRenderer = renderer;
-	   }
-	   public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-	      if(value instanceof Component)
-	         return (Component)value;
-	         return defaultRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-	   }
-	}
-
-class ButtonRenderer extends JButton implements TableCellRenderer {
-
-	private static final long serialVersionUID = 1L;
-
-	public ButtonRenderer() {
-	    setOpaque(true);
-	  }
-
-	  public Component getTableCellRendererComponent(JTable table, Object value,
-	      boolean isSelected, boolean hasFocus, int row, int col) {
-		  
-		  //JButton button = new JButton();
-		  //JOptionPane.showMessageDialog((JButton)(value), row + " " + col +": Ouch!");
-		   
-	    if (isSelected) {
-	      setForeground(table.getSelectionForeground());
-	      setBackground(table.getSelectionBackground());
-	    } else {
-	      setForeground(table.getForeground());
-	      if(row == 1)
-	      setBackground(UIManager.getColor("Button.background"));
-	      else 
-	    	  setBackground(UIManager.getColor("Checkbox.background"));
-	    }
-	    setText((value == null) ? "" : value.toString());
-	   // JButton button = new JButton();
-	    //JOptionPane.showMessageDialog(button, row + " " + column +": Ouch!");
-	    System.out.println(row + " " + col + ": Ouch!");
-	    return this;
-	  }
-}
-
-	class ButtonEditor extends DefaultCellEditor {
-		private static final long serialVersionUID = 1L;
-
-		protected JCheckBox button;
-
-		private String label;
-
-		private boolean isPushed;
-
-	  public ButtonEditor(JCheckBox checkBox) {
-	    super(checkBox);
-	    //button = new JButton();
-	    button = checkBox;
-	    button.setOpaque(true);
-	    button.addActionListener(new ActionListener() {
-	      public void actionPerformed(ActionEvent e) {
-	        fireEditingStopped();
-	      }
-	    });
-	  }
-
-	  public Component getTableCellEditorComponent(JTable table, Object value,
-	      boolean isSelected, int row, int column) {
-		  
-		  //JButton button = new JButton();
-		   //JOptionPane.showMessageDialog(button, row + " " + column +": Ouch!");
-	    if (isSelected) {
-	      //button.setForeground(table.getSelectionForeground());
-	      //button.setBackground(table.getSelectionBackground());
-	    } else {
-	      //button.setForeground(table.getForeground());
-	      //button.setBackground(table.getBackground());
-	    }
-	    label = (value == null) ? "" : value.toString();
-	    //button.setText(label);
-	    isPushed = true;
-	    return button;
-	  }
-
-	  public Object getCellEditorValue() {
-	    if (isPushed) {
-	      // 
-	      // 
-	      JOptionPane.showMessageDialog(button, label + ": Ouch!");
-	       System.out.println(label + ": Ouch!");
-	    }
-	    isPushed = false;
-	    return new String(label);
-	  }
-
-	  public boolean stopCellEditing() {
-	    isPushed = false;
-	    return super.stopCellEditing();
-	  }
-
-	  protected void fireEditingStopped() {
-	    super.fireEditingStopped();
-	  }
-	}
-
-
-
 public class CoVerifier {
 
 	private JFrame frmEasyicCoverified;
@@ -263,13 +96,13 @@ public class CoVerifier {
 	private JTextField textField_1;
 	private JTable table;
 	private JTable table_1;
-	
-	
-
-	
-	Color easyicOrange = new Color(228, 131, 18);
 	private JTable table_2;
+	
 
+	
+	private Color easyicOrange = new Color(228, 131, 18);
+	private Color checkBoxColor = new Color(242, 246, 223);
+	
 
 	/**
 	 * Launch the application.
@@ -304,15 +137,24 @@ public class CoVerifier {
 	 */
 	private void initialize(Color ORANGE) {
 		frmEasyicCoverified = new JFrame();
+		frmEasyicCoverified.setResizable(false);
 		frmEasyicCoverified.getContentPane().setForeground(ORANGE);
 		frmEasyicCoverified.setForeground(ORANGE);
 		frmEasyicCoverified.setBackground(ORANGE);
 		frmEasyicCoverified.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		frmEasyicCoverified.setTitle("EasyIC CoVerifier");
-		frmEasyicCoverified.setBounds(100, 100, 987, 892);
+		frmEasyicCoverified.setBounds(100, 100, 966, 851);
 		frmEasyicCoverified.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmEasyicCoverified.getContentPane().setLayout(null);
 		
+		/*** aici configurez bordere unul normal si un border dash ***/
+		LineBorder border = new LineBorder(new Color(0, 0, 0), 3, true);		
+		Paint pnt = new GradientPaint(0, 0, Color.red, 100, 100, Color.pink, true);
+		//Color easyicOrange = new Color(228, 131, 18);
+		float thickness = 2; float  length = 50; float  spacing = 23; boolean rounded = true;
+		Border borderdash = BorderFactory.createDashedBorder(easyicOrange, thickness, length, spacing, rounded);
+		/*end border dash*/
+				
 		JLabel lblNewJgoodiesTitle_3 = DefaultComponentFactory.getInstance().createTitle("New JGoodies title");
 		lblNewJgoodiesTitle_3.setVisible(false);
 		lblNewJgoodiesTitle_3.setIcon(new ImageIcon("res\\lvm1.gif"));
@@ -326,37 +168,29 @@ public class CoVerifier {
 		frmEasyicCoverified.getContentPane().add(lblNewJgoodiesTitle_2);
 		
 		JPanel panel = new JPanel();
-		
-		LineBorder border = new LineBorder(new Color(0, 0, 0), 3, true);
-		
-		/*** aici creez un bordar dash ***/
-		Paint pnt = new GradientPaint(0, 0, Color.red, 100, 100, Color.pink, true); 
-		float thickness = 2; float  length = 5; float  spacing= 5; boolean rounded = true;
-		Border borderdash = BorderFactory.createDashedBorder(pnt, thickness, length, spacing, rounded);
-		/*end border dash*/
-		
-		//panel.setBorder(borderdash);
-		panel.setBorder(new LineBorder(new Color(0, 0, 0), 3));
+				
+		panel.setBorder(borderdash);
+		//panel.setBorder(border);
 		panel.setBounds(48, 29, 886, 156);
 		frmEasyicCoverified.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel_3.setBorder(border);
 		panel_3.setBounds(12, 13, 424, 130);
 		panel.add(panel_3);
 		panel_3.setLayout(null);
 		
 		JCheckBox chckbxFvControl = new JCheckBox("FW   Control");
 		chckbxFvControl.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		chckbxFvControl.setBackground(new Color(242, 246, 223));
+		chckbxFvControl.setBackground(checkBoxColor);
 		chckbxFvControl.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		chckbxFvControl.setBounds(37, 78, 150, 25);
 		panel_3.add(chckbxFvControl);
 		
 		JCheckBox chckbxUvmControl = new JCheckBox("UVM Control");
 		chckbxUvmControl.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		chckbxUvmControl.setBackground(new Color(242, 246, 223));
+		chckbxUvmControl.setBackground(checkBoxColor);
 		chckbxUvmControl.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		chckbxUvmControl.setBounds(37, 51, 150, 25);
 		panel_3.add(chckbxUvmControl);
@@ -368,7 +202,7 @@ public class CoVerifier {
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setToolTipText("Not used  if Emulated CPU & DPI selected");
-		panel_4.setBorder(new CompoundBorder(new EtchedBorder(EtchedBorder.RAISED, null, null), null));
+		panel_4.setBorder(border);
 		panel_4.setBounds(484, 13, 390, 130);
 		panel.add(panel_4);
 		
@@ -399,6 +233,7 @@ public class CoVerifier {
 		textField_1.setBackground(ORANGE);
 		textField_1.setColumns(10);
 		
+		/*aici am un layout mai tampit - poate ar tb schimbat cu unul obijnuit*/
 		JLabel lblNewLabel = new JLabel("MEMORY");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
@@ -445,8 +280,8 @@ public class CoVerifier {
 		lblNewJgoodiesTitle.setBackground(ORANGE);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new LineBorder(new Color(0, 0, 0), 3));
-		panel_2.setBounds(48, 370, 886, 404);
+		panel_2.setBorder(border);
+		panel_2.setBounds(48, 370, 886, 391);
 		frmEasyicCoverified.getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 		
@@ -464,33 +299,6 @@ public class CoVerifier {
 		btnNewButton_2.setBounds(80, 13, 97, 25);
 		panel_7.add(btnNewButton_2);
 		
-		/*
-		 *
-		 * FOR DEBUG!		
-		table_1 = new JTable();
-		table_1.setBackground(Color.BLACK);
-		table_1.setForeground(Color.WHITE);
-		table_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		table_1.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"EXTERNAL PORT", "CONFIG ALL"},
-			},
-			new String[] {
-				"EXTERNAL PORT", "Config ALL"
-			}
-		));
-		table_1.setAlignmentX(50);
-		table_1.getColumnModel().getColumn(0).setPreferredWidth(152);
-		table_1.getColumnModel().getColumn(0).setMinWidth(50);
-		table_1.getColumnModel().getColumn(1).setPreferredWidth(152);
-		table_1.getColumnModel().getColumn(1).setMinWidth(50);
-		table_1.setRowHeight(52);
-		table_1.setBounds(47, 81, 774, 48);
-		table_1.setVisible(false);
-		panel_2.add(table_1);
-
-		 */
-
 		table_2 = new JTable();
 		table_2.setFillsViewportHeight(true);
 		table_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -499,26 +307,7 @@ public class CoVerifier {
 		table_2.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
 		
 		  
-		/*table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{panel_7, null},
-				{"  SPI", null},
-				{"  HDMI", null},
-			},
-			new String[] {
-				"EXT_PORT", "CONFIG1"
-			}
-		));*/
-		//TableCellRenderer tableRenderer = table.getDefaultRenderer(JButton.class);
-	    //table.setDefaultRenderer(JButton.class, new JTableButtonRenderer(tableRenderer));
-		
-	      //scrollPane = new JScrollPane(table);
-	      //add(scrollPane, BorderLayout.CENTER);
-		
-    	     
-		//TableModel model = new TableModel();
-		//table.setModel(model);
-		 Object[][] rows = {
+		Object[][] rows = {
 				{("UART"), (true), (false)},
 				{("  SPI  "), (true), (true)},
 				{("HDMI"), (true), (true)}
@@ -552,46 +341,10 @@ public class CoVerifier {
 	          	}
 	        };
 	        
-	        
-	        	
-	        		
-		//table.getColumn("Col1").setCellRenderer(new ButtonRenderer());
-		//table.getColumn("Button2").setCellRenderer(new ButtonRenderer());
-		//table.getColumn("Col2").setCellEditor(new ButtonEditor(new JCheckBox()));
-		
-		
-		/////
-		/*DefaultTableModel model = new DefaultTableModel();
-	    model.setDataVector(new Object[][] {
-	    	{("Button1"), ("chk1")},
-			{("Button2"), ("chk2")},
-			{("Button3"), ("chk3")}
-			}, new Object[] { "Col1", "Col2" });
-	    
-	    table.setModel(model);
-	    */
-		
-	    //JTable table = new JTable(dm);
-	    //TableColumn tc = table.getColumn("Button1");
-	    
-	    //table.getColumn("Col1").setCellRenderer(new ButtonRenderer());
-	    //table.getColumn("Col1").setCellEditor(new ButtonEditor(new JCheckBox()));
 	    table_2.getColumn("EXTERNAL PORT").setCellRenderer(new MyCellComponentRenderer());
 	    table_2.getColumn("EXTERNAL PORT").setCellEditor(new MyCellComponentEditor(new JCheckBox()));
 	    
-        for (int i = 0; i < model.getRowCount(); i++) {
-        	Object obj = table_2.getValueAt(i, 0);
-            //MyComponent value = (MyComponent)table.getValueAt(i, 0);// check state
-            //value.setLable("cucu" + i);
-            //    System.out.println(model.getValueAt(i, 1));// second column value
-            
-        }
-	    
-	    //JScrollPane scroll = new JScrollPane(table);
-	    //getContentPane().add(scroll);
-	    //setSize(400, 100);
-	    //setVisible(true);
-	    /////////
+	    /* header table settings*/
 	    
         JTableHeader header = table_2.getTableHeader();
 	    header.setBackground(Color.black);
@@ -618,11 +371,6 @@ public class CoVerifier {
         table_2.setShowVerticalLines(true);
         table_2.setShowHorizontalLines(true);
         table_2.setVisible(true);
-		//panel_2.add(table);
-		
-		JScrollBar scrollBar = new JScrollBar();
-		scrollBar.setBounds(833, 85, 21, 255);
-		panel_2.add(scrollBar);
 		
 		JButton btnNewButton = new JButton("  GENERATE");
 		
@@ -648,15 +396,38 @@ public class CoVerifier {
 		panel_2.add(btnNewButton);		
 		
 		JButton btnNewButton_1 = new JButton("ADD NEW PORT");
-		btnNewButton_1.setBounds(47, 353, 140, 38);
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				DefaultTableModel  model = (DefaultTableModel)table_2.getModel();
+				Object[] arrObj = new Object [model.getColumnCount()];
+				arrObj[0] = "NEW ROW";
+				arrObj[1] = true;
+				for(int i = 2; i < model.getColumnCount(); i++) {
+					arrObj[i] = false;
+				}
+				model.insertRow(model.getRowCount(), arrObj); 				
+			}
+		});
+		btnNewButton_1.setBounds(47, 334, 140, 38);
 		panel_2.add(btnNewButton_1);
 		
 		JButton btnAddNewConfig = new JButton("ADD NEW CONFIG");
-		btnAddNewConfig.setBounds(681, 31, 140, 38);
+		btnAddNewConfig.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				DefaultTableModel  model = (DefaultTableModel)table_2.getModel();
+				//TableColumn c = new TableColumn(i);
+		        //c.setHeaderValue(getColNam(i))
+				model.addColumn("Config " + (model.getColumnCount() - 1));
+				//TODO: repeat that!
+			    table_2.getColumn("EXTERNAL PORT").setCellRenderer(new MyCellComponentRenderer());
+			    table_2.getColumn("EXTERNAL PORT").setCellEditor(new MyCellComponentEditor(new JCheckBox()));
+			}
+		});
+		btnAddNewConfig.setBounds(705, 31, 140, 38);
 		panel_2.add(btnAddNewConfig);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(47, 84, 774, 226);
+		scrollPane.setBounds(47, 84, 798, 237);
 		panel_2.add(scrollPane);
 		scrollPane.add(table_2);
 		
@@ -665,7 +436,7 @@ public class CoVerifier {
 		
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(border);
+		panel_1.setBorder(borderdash);
 		//panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_1.setBounds(48, 198, 443, 156);
 		frmEasyicCoverified.getContentPane().add(panel_1);
@@ -675,16 +446,16 @@ public class CoVerifier {
 		panel_8.setBounds(12, 13, 417, 130);
 		panel_1.add(panel_8);
 		panel_8.setLayout(null);
-		panel_8.setBorder(new CompoundBorder(new EtchedBorder(EtchedBorder.RAISED, null, null), null));
+		panel_8.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		
 		JCheckBox checkBox = new JCheckBox("USE MAILBOX DPI Emulation");
-		checkBox.setBackground(new Color(242, 246, 223));
+		checkBox.setBackground(checkBoxColor);
 		checkBox.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		checkBox.setBounds(34, 82, 291, 25);
 		panel_8.add(checkBox);
 		
 		JCheckBox checkBox_1 = new JCheckBox("EMULATE CPU");
-		checkBox_1.setBackground(new Color(242, 246, 223));
+		checkBox_1.setBackground(checkBoxColor);
 		checkBox_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		checkBox_1.setBounds(34, 52, 153, 25);
 		panel_8.add(checkBox_1);
@@ -699,7 +470,7 @@ public class CoVerifier {
 		panel_8.add(btnNewButton_3);
 		
 		JPanel panel_5 = new JPanel();
-		panel_5.setBorder(border);
+		panel_5.setBorder(borderdash);
 		panel_5.setBounds(534, 198, 400, 156);
 		frmEasyicCoverified.getContentPane().add(panel_5);
 		panel_5.setLayout(null);
@@ -707,24 +478,25 @@ public class CoVerifier {
 		JPanel panel_6 = new JPanel();
 		panel_6.setBounds(12, 13, 376, 130);
 		panel_5.add(panel_6);
-		panel_6.setBorder(new CompoundBorder(new EtchedBorder(EtchedBorder.RAISED, null, null), null));
+		panel_6.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		panel_6.setLayout(null);
-		
-		JCheckBox chckbxTodo = new JCheckBox("TODO");
-		chckbxTodo.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		chckbxTodo.setBounds(34, 82, 153, 25);
-		panel_6.add(chckbxTodo);
-		
-		JCheckBox chckbxBfm = new JCheckBox("BFM ENV");
-		chckbxBfm.setBackground(new Color(242, 246, 223));
-		chckbxBfm.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		chckbxBfm.setBounds(34, 52, 153, 25);
-		panel_6.add(chckbxBfm);
-		
+				
 		JLabel lblBfm = new JLabel("BFM");
 		lblBfm.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		lblBfm.setBounds(162, 13, 71, 30);
 		panel_6.add(lblBfm);
+		
+		JCheckBox chckbxBfm = new JCheckBox("BFM ENV");
+		chckbxBfm.setBackground(checkBoxColor);
+		chckbxBfm.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		chckbxBfm.setBounds(34, 52, 153, 25);
+		panel_6.add(chckbxBfm);
+		
+		JCheckBox chckbxTodo = new JCheckBox("TODO");
+		chckbxTodo.setBackground(checkBoxColor);
+		chckbxTodo.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		chckbxTodo.setBounds(34, 82, 153, 25);
+		panel_6.add(chckbxTodo);		
 		
 		panel_5.add(panel_6);
 		

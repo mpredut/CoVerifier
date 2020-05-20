@@ -1,8 +1,11 @@
 package easyic;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
+import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -18,11 +21,13 @@ public class MyComponent extends JPanel
 	private JButton button;
     private JCheckBox checkBox;
     private JLabel label1;
-    private JLabel label2;
-
+    
     private boolean state;
 
     public MyComponent() {
+    	BorderLayout lay = new BorderLayout();
+    	setLayout(lay);
+    	//GroupLayout gl_panel_4 = new GroupLayout(panel_4); button.setBounds(40, 4, 50, 100);
 
         button = new JButton("  CONFIG");
         button.addActionListener(new ActionListener() {
@@ -30,18 +35,12 @@ public class MyComponent extends JPanel
 	         public void actionPerformed(ActionEvent arg0) {
 	               JOptionPane.showMessageDialog(button, ": Ouch!");
 	         }
-	     });
+	     });       
 
         //checkBox = new JCheckBox("A");
-        label1 = new JLabel("   ");
-        label2 = new JLabel("                     ");
-
-        this.add(label1);
-        //this.add(label2);
-        this.add(label2);
-        this.add(label2);
-        this.add(label2);
-        this.add(button);
+        label1 = new JLabel(" LABEL ");
+        this.add(label1, BorderLayout.CENTER);
+        this.add(button, BorderLayout.LINE_END);
         //this.add(checkBox);
         
 
