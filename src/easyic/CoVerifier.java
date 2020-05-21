@@ -98,6 +98,7 @@ import javax.swing.event.MenuListener;
 import javax.swing.event.MenuEvent;
 import java.util.List;
 import java.util.Properties;
+import java.util.prefs.Preferences;
 import java.util.ArrayList;
 //import java.awt.List;
 
@@ -552,10 +553,15 @@ public class CoVerifier {
 		JMenuItem mntmNewMenuItem = new JMenuItem("Load");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+				//JFileChooser fileChooser = new JFileChooser();
+				//fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+				Preferences prefs = Preferences.userRoot().node(getClass().getName());
+				JFileChooser fileChooser = new JFileChooser(prefs.get("LAST_USED_FOLDER",
+				    new File(".").getAbsolutePath()));
 				int result = fileChooser.showOpenDialog(frmEasyicCoverified);
 				if (result == JFileChooser.APPROVE_OPTION) {
+					prefs.put("LAST_USED_FOLDER", fileChooser.getSelectedFile().getParent());
+					
 				    File selectedFile = fileChooser.getSelectedFile();
 				    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
 				    InputStream inputStream;
@@ -614,13 +620,16 @@ public class CoVerifier {
 		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Save");
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-				int result = fileChooser.showSaveDialog(frmEasyicCoverified);
+			public void actionPerformed(ActionEvent e) {							
+				//JFileChooser fileChooser = new JFileChooser();
+				//fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+				Preferences prefs = Preferences.userRoot().node(getClass().getName());
+				JFileChooser fileChooser = new JFileChooser(prefs.get("LAST_USED_FOLDER",
+				    new File(".").getAbsolutePath()));
+				int result = fileChooser.showOpenDialog(frmEasyicCoverified);
 				if (result == JFileChooser.APPROVE_OPTION) {
-				    File selectedFile = fileChooser.getSelectedFile();
-				    
+					prefs.put("LAST_USED_FOLDER", fileChooser.getSelectedFile().getParent());
+					File selectedFile = fileChooser.getSelectedFile();				    
 				    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
 
 				    configProps = new Properties();
