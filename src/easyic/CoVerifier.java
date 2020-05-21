@@ -10,8 +10,11 @@ import javax.swing.UIDefaults;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+
+import java.awt.Checkbox;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 
 import javax.swing.JButton;
@@ -56,6 +59,10 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.sql.Date;
 
 import javax.imageio.ImageIO;
@@ -67,7 +74,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
-import java.awt.Component;
+//import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -85,10 +92,17 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.event.MenuListener;
 import javax.swing.event.MenuEvent;
+import java.util.List;
+import java.util.Properties;
+import java.util.ArrayList;
+//import java.awt.List;
+
 
 
 public class CoVerifier {
 
+	private Properties configProps;
+	
 	private JFrame frmEasyicCoverified;
 	private ConfigPrj frmConfigPrj;
 	
@@ -102,6 +116,17 @@ public class CoVerifier {
 	
 	private Color easyicOrange = new Color(228, 131, 18);
 	private Color checkBoxColor = new Color(242, 246, 223);
+	
+	public static List<Component> getAllComponents(final Container c) {
+	    Component[] comps = c.getComponents();
+	    List<Component> compList = new ArrayList<Component>();
+	    for (Component comp : comps) {
+	        compList.add(comp);
+	        if (comp instanceof Container)
+	            compList.addAll(getAllComponents((Container) comp));
+	    }
+	    return compList;
+	}
 	
 
 	/**
@@ -226,12 +251,14 @@ public class CoVerifier {
 		textField.setForeground(Color.WHITE);
 		textField.setBackground(ORANGE);
 		textField.setColumns(10);
+		textField.setName("textField");
 		
 		textField_1 = new JTextField();
 		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		textField_1.setForeground(Color.WHITE);
 		textField_1.setBackground(ORANGE);
 		textField_1.setColumns(10);
+		textField_1.setName("textField_1");
 		
 		/*aici am un layout mai tampit - poate ar tb schimbat cu unul obijnuit*/
 		JLabel lblNewLabel = new JLabel("MEMORY");
@@ -535,7 +562,37 @@ public class CoVerifier {
 				int result = fileChooser.showSaveDialog(frmEasyicCoverified);
 				if (result == JFileChooser.APPROVE_OPTION) {
 				    File selectedFile = fileChooser.getSelectedFile();
+				    
 				    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+
+				    configProps = new Properties();
+				    List<Component>  lst = getAllComponents(frmEasyicCoverified);
+				    for (Component comp : lst) {
+				    	if(comp instanceof JCheckBox)  {
+				    		//System.out.println(comp.getName());
+				    		System.out.println(((JCheckBox) comp).getText());
+				    		System.out.println(((JCheckBox) comp).isSelected());
+				    		configProps.setProperty(((JCheckBox) comp).getText(), Boolean.toString(((JCheckBox) comp).isSelected()));
+				    	}
+				    	if(comp instanceof JTextField) { 
+					    	System.out.println(((JTextField) comp).getName());
+					    	System.out.println(((JTextField) comp).getText());
+					    	configProps.setProperty(((JTextField) comp).getName(), ((JTextField) comp).getText());
+				    	}
+				    }
+				    
+				    
+					try {
+						OutputStream outputStream = new FileOutputStream(selectedFile);
+						configProps.store(outputStream, "ui setttings");
+						outputStream.close();
+					} catch (FileNotFoundException e1) {
+						System.out.println("FileNotFoundException ");
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						System.out.println("IOException ");
+						e1.printStackTrace();
+					}										
 				}
 			}
 		});
@@ -558,4 +615,6 @@ public class CoVerifier {
 		
 		menuBar.add(mnNewMenu_1);
 	}
+	
+	
 }
