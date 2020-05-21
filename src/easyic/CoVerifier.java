@@ -53,6 +53,8 @@ import java.awt.Font;
 import java.awt.GradientPaint;
 
 import javax.swing.border.MatteBorder;
+
+import com.jgoodies.common.base.Strings;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
@@ -145,6 +147,27 @@ public class CoVerifier {
 				}
 			}
 		});
+	}
+	
+	private void TableAddNewRow() {
+		DefaultTableModel  model = (DefaultTableModel)table_2.getModel();
+		Object[] arrObj = new Object [model.getColumnCount()];
+		arrObj[0] = "NEW ROW";
+		arrObj[1] = true;
+		for(int i = 2; i < model.getColumnCount(); i++) {
+			arrObj[i] = false;
+		}
+		model.insertRow(model.getRowCount(), arrObj);
+	}
+	
+	private void TableAddNewColumn() {
+		DefaultTableModel  model = (DefaultTableModel)table_2.getModel();
+		//TableColumn c = new TableColumn(i);
+        //c.setHeaderValue(getColNam(i))
+		model.addColumn("Config " + (model.getColumnCount() - 1));
+		//TODO: repeat that!
+	    table_2.getColumn("EXTERNAL PORT").setCellRenderer(new MyCellComponentRenderer());
+	    table_2.getColumn("EXTERNAL PORT").setCellEditor(new MyCellComponentEditor(new JCheckBox()));
 	}
 
 	/**
@@ -427,14 +450,7 @@ public class CoVerifier {
 		JButton btnNewButton_1 = new JButton("ADD NEW PORT");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				DefaultTableModel  model = (DefaultTableModel)table_2.getModel();
-				Object[] arrObj = new Object [model.getColumnCount()];
-				arrObj[0] = "NEW ROW";
-				arrObj[1] = true;
-				for(int i = 2; i < model.getColumnCount(); i++) {
-					arrObj[i] = false;
-				}
-				model.insertRow(model.getRowCount(), arrObj); 				
+				TableAddNewRow(); 				
 			}
 		});
 		btnNewButton_1.setBounds(47, 334, 140, 38);
@@ -443,13 +459,7 @@ public class CoVerifier {
 		JButton btnAddNewConfig = new JButton("ADD NEW CONFIG");
 		btnAddNewConfig.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				DefaultTableModel  model = (DefaultTableModel)table_2.getModel();
-				//TableColumn c = new TableColumn(i);
-		        //c.setHeaderValue(getColNam(i))
-				model.addColumn("Config " + (model.getColumnCount() - 1));
-				//TODO: repeat that!
-			    table_2.getColumn("EXTERNAL PORT").setCellRenderer(new MyCellComponentRenderer());
-			    table_2.getColumn("EXTERNAL PORT").setCellEditor(new MyCellComponentEditor(new JCheckBox()));
+				TableAddNewColumn();
 			}
 		});
 		btnAddNewConfig.setBounds(705, 31, 140, 38);
@@ -543,7 +553,7 @@ public class CoVerifier {
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
 				int result = fileChooser.showOpenDialog(frmEasyicCoverified);
 				if (result == JFileChooser.APPROVE_OPTION) {
 				    File selectedFile = fileChooser.getSelectedFile();
@@ -576,6 +586,23 @@ public class CoVerifier {
 					    	System.out.println(((JTextField) comp).getText());
 					    	 ((JTextField) comp).setText(configProps.getProperty(((JTextField) comp).getName()));
 				    	}
+				    }
+				    
+				    /*table only*/
+			    	int rows = Integer.valueOf(configProps.getProperty("rows"));
+			    	int columns = Integer.valueOf(configProps.getProperty("columns"));
+			    	
+			    	for(int i = 0; i < rows - table_2.getRowCount(); i++) TableAddNewRow();
+			    	for(int i = 0; i < columns - table_2.getColumnCount(); i++) TableAddNewColumn();
+			    	
+				    for (int i = 0; i < table_2.getRowCount(); i++) {
+				        for (int j = 0; j < table_2.getColumnCount(); j++) {
+				        	System.out.println(table_2.getValueAt(i, j));
+				        	if( j != 0)
+				        		table_2.setValueAt(Boolean.valueOf(configProps.getProperty(i + "_" + j)), i, j);
+				        	else 
+				        		table_2.setValueAt(configProps.getProperty(i + "_" + j), i, j);				        	
+				        }
 				    }
 				}
 			}
@@ -610,6 +637,16 @@ public class CoVerifier {
 					    	System.out.println(((JTextField) comp).getText());
 					    	configProps.setProperty(((JTextField) comp).getName(), ((JTextField) comp).getText());
 				    	}
+				    }
+				    
+				    /*table only*/
+			    	configProps.setProperty("rows", Integer.toString(table_2.getRowCount()));
+			    	configProps.setProperty("columns", Integer.toString(table_2.getColumnCount()));
+				    for (int i = 0; i < table_2.getRowCount(); i++) {
+				        for (int j = 0; j < table_2.getColumnCount(); j++) {
+				        	System.out.println(table_2.getValueAt(i, j));
+				        	configProps.setProperty(i + "_" + j, table_2.getValueAt(i, j).toString());
+				        }
 				    }
 				    
 				    
