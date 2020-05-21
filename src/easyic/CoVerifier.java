@@ -59,9 +59,11 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Date;
 
@@ -546,6 +548,35 @@ public class CoVerifier {
 				if (result == JFileChooser.APPROVE_OPTION) {
 				    File selectedFile = fileChooser.getSelectedFile();
 				    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+				    InputStream inputStream;
+					try {
+						configProps = new Properties();
+						
+						inputStream = new FileInputStream(selectedFile.getAbsolutePath());
+						configProps.load(inputStream);
+						inputStream.close();
+					} catch (FileNotFoundException e) {
+						System.out.println("FileNotFoundException ");
+						e.printStackTrace();
+					} catch (IOException e) {
+						System.out.println("IOException ");
+						e.printStackTrace();
+					}
+					
+					List<Component>  lst = getAllComponents(frmEasyicCoverified);
+				    for (Component comp : lst) {
+				    	if(comp instanceof JCheckBox)  {
+				    		//System.out.println(comp.getName());
+				    		System.out.println(((JCheckBox) comp).getText());
+				    		System.out.println(((JCheckBox) comp).isSelected());
+				    		((JCheckBox) comp).setSelected(Boolean.valueOf(configProps.getProperty(((JCheckBox) comp).getText())));
+				    	}
+				    	if(comp instanceof JTextField) { 
+					    	System.out.println(((JTextField) comp).getName());
+					    	System.out.println(((JTextField) comp).getText());
+					    	 ((JTextField) comp).setText(configProps.getProperty(((JTextField) comp).getName()));
+				    	}
+				    }
 				}
 			}
 		});
@@ -583,7 +614,7 @@ public class CoVerifier {
 				    
 				    
 					try {
-						OutputStream outputStream = new FileOutputStream(selectedFile);
+						OutputStream outputStream = new FileOutputStream(selectedFile.getAbsolutePath());
 						configProps.store(outputStream, "ui setttings");
 						outputStream.close();
 					} catch (FileNotFoundException e1) {
