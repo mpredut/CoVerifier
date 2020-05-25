@@ -5,6 +5,7 @@ import java.awt.Component;
 
 import javax.swing.JButton;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.table.TableCellRenderer;
 
@@ -18,7 +19,7 @@ public class MyCellComponentRenderer extends MyComponent implements TableCellRen
 
 	public MyCellComponentRenderer() {
 		super();
-     // setOpaque(true);
+      setOpaque(true);
     }
 
     public Component getTableCellRendererComponent(JTable table, Object value,
@@ -31,8 +32,8 @@ public class MyCellComponentRenderer extends MyComponent implements TableCellRen
         setBackground(Color.white);
       }
 
-      setLable(value.toString());
-      
+      setLable((value == null) ? "" : value.toString());
+           
       return this;
     }
 }

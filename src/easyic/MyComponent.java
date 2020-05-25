@@ -68,6 +68,11 @@ public class MyComponent extends JPanel
     {
         this.label1.setText(text);
     }
+    
+    public String getLable()
+    {
+        return this.label1.getText();
+    }
 
     public void setState(boolean state)
     {

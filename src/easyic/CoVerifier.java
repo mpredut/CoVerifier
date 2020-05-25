@@ -380,7 +380,7 @@ public class CoVerifier {
 	            public Class getColumnClass(int column) {
 	                switch (column) {
 	                    case 0:
-	                        return MyComponent.class;
+	                        return String.class;
 	                    case 1:
 	                        return Boolean.class;
 	                    default:

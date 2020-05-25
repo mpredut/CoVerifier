@@ -48,8 +48,8 @@ public class MyCellComponentEditor extends DefaultCellEditor {
         }
         isPushed = false;
         
-        //System.out.println("getCellEditorValue");
-        return myComponent.toString();
+        System.out.println("getCellEditorValue");
+        return myComponent.getLable();
     }
     @Override
     public boolean stopCellEditing() {
